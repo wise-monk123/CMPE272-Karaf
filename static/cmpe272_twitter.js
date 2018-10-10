@@ -1,4 +1,4 @@
-
+// Jia Ma Start
 var interested_users = ['Jia31759270', 'elonmusk', 'spaceX', 'nasa', 'asdf', 'sanjosetrails', 'YosemiteNPS', 'realDonaldTrump'];
 var current_users = [];
 // to fetch last status with frequency of TIME_INTERVAL.
@@ -116,3 +116,4 @@ $(document).ready(function() {
         }
     }, TIME_INTERVAL);
 });
+//Jia Ma End
