@@ -1,6 +1,9 @@
 
 var interested_users = ['Jia31759270', 'elonmusk', 'spaceX', 'nasa', 'asdf', 'sanjosetrails', 'YosemiteNPS', 'realDonaldTrump'];
 var current_users = [];
+// to fetch last status with frequency of TIME_INTERVAL.
+var time_count = 0;
+var TIME_INTERVAL = 6000;
 var badges = current_users.length;
 
 function reload_users(arr)
@@ -105,4 +108,11 @@ $(document).ready(function() {
         $('#post_status_input').focus();
     });
     reload_users(interested_users);
+    window.setInterval(function() {
+        if (current_users.length > 0) {
+            var l = time_count % current_users.length;
+            time_count += 1;
+            update_recent(current_users[l]);
+        }
+    }, TIME_INTERVAL);
 });
