@@ -20,7 +20,7 @@ apply your twitter API key and put them in api_key.py file:
 
 ## Run
 
-    export FLASK_APP=cmpe272_twitter.pyc
+    export FLASK_APP=cmpe272_twitter.py
     export FLASK_ENV=development
     flask run --host=0.0.0.0
 
