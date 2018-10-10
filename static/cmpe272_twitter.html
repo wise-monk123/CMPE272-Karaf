@@ -1,0 +1,71 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+
+    <title>Yet Another Twitter API playground</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  </head>
+
+  <body class="bg-light" name="start_of_page">
+
+    <main role="main" class="container">
+      <div class="nav-scroller">
+        <nav class="nav nav-underline">
+          <a class="nav-link" href="#post_status" id='nav_post_status'> Post Status</span>
+          <a class="nav-link active" id="dashboard" href="#">User timeline</a>
+          </a>
+        </nav>
+      </div>
+
+
+      <div class="my-3 p-3 bg-white rounded shadow-sm" name="post_status">
+        <h6 class="border-bottom border-gray pb-2 mb-0">Post Status</h6>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">my status</span>
+          </div>
+          <input id="post_status_input" type="text" class="form-control" placeholder="I love CMPE272!" aria-label="I love CMPE272!" aria-describedby="basic-addon1">
+        </div>
+        </div>
+      </div>
+
+
+      <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h6 class="border-bottom border-gray pb-2 mb-0">Recent updates <span id="update_badge" class="badge badge-pill bg-light align-text-bottom"></span></h6>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">@</span>
+          </div>
+          <input id="start" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+
+        <div id="user_update" class="d-none media text-muted pt-3">
+          <div class="media text-muted pt-3">
+            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+              <strong class="d-block text-gray-dark">@username</strong>
+              @text
+            </p>
+          </div>
+        </div>
+
+        <small class="d-block text-right mt-3">
+          <button type="button" class="close_me_x btn btn-primary btn-sm">Remove all</button>
+        </small>
+      </div>
+    </main>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="/static/cmpe272_twitter.js"></script>
+  </body>
+</html>
