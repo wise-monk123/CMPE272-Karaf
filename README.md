@@ -6,7 +6,7 @@ python3 is required. It may work with python2 but not tested.
 
 ## Install
 
-install required packages. flask and python-twitter.
+install required packages:flask.
     cd cmpe272_twitter
     python -m venv venv
     source venv/bin/activate
@@ -24,5 +24,6 @@ apply your twitter API key and put them in api_key.py file:
     export FLASK_ENV=development
     flask run --host=0.0.0.0
 
-## Deployment
-    TBD
+## Development
+
+Please add your name to comments in the code block
