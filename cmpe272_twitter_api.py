@@ -6,7 +6,7 @@ class Cmpe272_Twitter_API(object):
     def __init__(self, consumer_key, consumer_secret, access_key, access_secret):
         self._auth = OAuth1(consumer_key, consumer_secret, access_key, access_secret)
         self._timeout = 30 # 30 seconds http read timeout.
-
+# Jia Ma Start
     def GetUserTimeline(self, **kwargs):
         '''
         https://developer.twitter.com/en/docs/tweets/timelines/api-reference/get-statuses-user_timeline.html
@@ -28,3 +28,4 @@ class Cmpe272_Twitter_API(object):
         res = requests.post(url, data=kwargs, auth=self._auth, timeout=self._timeout)
         res.raise_for_status()
         return res.json()
+# Jia Ma End
