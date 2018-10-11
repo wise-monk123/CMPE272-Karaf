@@ -1,3 +1,12 @@
+// Yuhua He Start
+// Define constants for different views
+const USER_TIMELINE = 'USER_TIMELINE';
+const POST_STATUS = 'POST_STATUS';
+const GET_FOLLOWERS = 'GET_FOLLOWERS';
+
+var current_view = POST_STATUS;
+// Yuhua He End
+
 // Jia Ma Start
 var interested_users = ['Jia31759270', 'elonmusk', 'spaceX', 'nasa', 'asdf', 'sanjosetrails', 'YosemiteNPS', 'realDonaldTrump'];
 var current_users = [];
@@ -19,6 +28,8 @@ function reload_users(arr)
 // fetch latest twitters for user:name then display most recent one in page.
 // if no such user, it will be simply ignored.
 function update_recent(name) {
+    navigateTo(USER_TIMELINE);
+
     $.ajax({
         method: 'POST',
         url: "/timeline",
@@ -90,26 +101,34 @@ $(document).ready(function() {
             post_status(this.value);
             $(this).val('');
         }
-      });      
+      });
 
     $('.close_me_x').click(function(){
-        $('.twitter_item').remove();
-        badges = 0;
-        current_users = [];
-        $('#update_badge').text(badges);
-        $('.close_me_x').removeClass('btn-primary').addClass('btn-secondary');
+      $('.twitter_item').remove();
+      badges = 0;
+      current_users = [];
+      $('#update_badge').text(badges);
+      $('.close_me_x').removeClass('btn-primary').addClass('btn-secondary');
     });
     $('#dashboard').click(function(){
-        badges = 0;
-        current_users = [];
-        reload_users(interested_users);
+      updateCurrentView(USER_TIMELINE);
+      badges = 0;
+      current_users = [];
+      reload_users(interested_users);
     });
     $('#nav_post_status').click(function(){
-        $('#post_status_input').focus();
+      updateCurrentView(POST_STATUS);
+      $('#post_status_input').focus();
     });
+
+    $('#get_followers').click(function(){
+      updateCurrentView(GET_FOLLOWERS);
+      getFollowers();
+    });
+
     reload_users(interested_users);
     window.setInterval(function() {
-        if (current_users.length > 0) {
+        if (current_users.length > 0 && [USER_TIMELINE, POST_STATUS].includes(current_view)) {
             var l = time_count % current_users.length;
             time_count += 1;
             update_recent(current_users[l]);
@@ -117,3 +136,95 @@ $(document).ready(function() {
     }, TIME_INTERVAL);
 });
 //Jia Ma End
+
+// Yuhua He  Start
+function navigateTo(view) {
+  hideUserTimeline();
+  hideFollowersPanel();
+
+  switch (view) {
+    case USER_TIMELINE:
+    case POST_STATUS:
+      showUserTimeline();
+      break;
+    case GET_FOLLOWERS:
+      showFollowersPanel();
+      break;
+    default: break;
+  }
+};
+
+function updateCurrentView(val) {
+  current_view = val;
+  navigateTo(val);
+};
+
+function hideUserTimeline() {
+  $('#recent-updates').addClass('hide-recent-updates');
+};
+
+function showUserTimeline() {
+  $('#recent-updates').removeClass('hide-recent-updates');
+};
+
+function hideFollowersPanel() {
+  $('#followers-panel').addClass('hide-followers-panel');
+};
+
+function showFollowersPanel() {
+  $('#followers-panel').removeClass('hide-followers-panel');
+};
+
+function getFollowers() {
+  $.ajax({
+      method: 'GET',
+      url: "/followers",
+      dataType: "json"
+    }).done(function(response){
+      hideUserTimeline();
+      emptyFollowersTable();
+      createFollowersTable(response);
+    }).fail((error) => {
+      console.warn('error', error);
+    });
+};
+
+function createTableHeader() {
+  return document.createElement('th');
+}
+
+function createTableRow() {
+  return document.createElement('tr');
+}
+
+function createTableData() {
+  return document.createElement('td');
+}
+
+function getFollowersTableBody() {
+  return $('#followers-panel > table > tbody');
+};
+
+function emptyFollowersTable() {
+  getFollowersTableBody.empty();
+};
+
+function createFollowersTable(followers) {
+  followers.users.forEach((user, i) => {
+    const tr = createTableRow();
+    const th = createTableHeader();
+    const td_name = createTableData()
+    const td_screen_name = createTableData();
+    const td_description = createTableData();
+
+    th.textContent = i + 1;
+    td_name.textContent = user.name;
+    td_screen_name.textContent = user.screen_name;
+    td_description.textContent = user.description;
+
+    tr.append(th, td_name, td_screen_name, td_description)
+
+    getFollowersTableBody.append(tr);
+  });
+};
+// Yuhua He End
