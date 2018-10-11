@@ -28,3 +28,11 @@ def poststatus():
             status = {'status': 'ok'}
     return jsonify(status)
 # Jia Ma End
+
+# Yuhua He Start
+@app.route('/followers', methods=['GET'])
+def getfollowers():
+    tapi = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
+    followers = tapi.GetFollowers()
+    return json.dumps(followers);
+# Yuhua He End
