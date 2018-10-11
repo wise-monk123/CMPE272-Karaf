@@ -18,6 +18,9 @@
       .hide-followers-panel {
         display: none;
       }
+      .hide-post-status {
+        display: none;
+      }
     </style>
   </head>
 
@@ -26,22 +29,20 @@
     <main role="main" class="container">
       <div class="nav-scroller">
         <nav class="nav nav-underline">
-          <a class="nav-link" id='nav_post_status' href="#" > Post Status</span>
+          <a class="nav-link" id='nav_post_status' href="#" > Post Status</span></a>
           <a class="nav-link active" id="dashboard" href="#" >User timeline</a>
           <a class="nav-link" id="get_followers" href="#" >Get Followers</a>
-          </a>
         </nav>
       </div>
 
 <!-- Jia Ma Start -->
-      <div class="my-3 p-3 bg-white rounded shadow-sm" name="post_status">
+      <div class="my-3 p-3 bg-white rounded shadow-sm" name="post_status" id="post-status">
         <h6 class="border-bottom border-gray pb-2 mb-0">Post Status</h6>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">my status</span>
           </div>
           <input id="post_status_input" type="text" class="form-control" placeholder="I love CMPE272!" aria-label="I love CMPE272!" aria-describedby="basic-addon1">
-        </div>
         </div>
       </div>
 
@@ -69,7 +70,8 @@
         </small>
       </div>
 
-      <div id="followers-panel">
+      <div class="my-3 p-3 bg-white rounded shadow-sm" id="followers-panel">
+        <h6 class="border-bottom border-gray pb-2 mb-0">Followers</h6>
         <table class="table table-striped">
           <thead>
             <tr>

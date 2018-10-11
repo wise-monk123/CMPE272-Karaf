@@ -139,12 +139,14 @@ $(document).ready(function() {
 
 // Yuhua He  Start
 function navigateTo(view) {
+  hidePostStatus();
   hideUserTimeline();
   hideFollowersPanel();
 
   switch (view) {
     case USER_TIMELINE:
     case POST_STATUS:
+      showPostStatus();
       showUserTimeline();
       break;
     case GET_FOLLOWERS:
@@ -157,6 +159,14 @@ function navigateTo(view) {
 function updateCurrentView(val) {
   current_view = val;
   navigateTo(val);
+};
+
+function hidePostStatus() {
+  $('#post-status').addClass('hide-post-status');
+};
+
+function showPostStatus() {
+  $('#post-status').removeClass('hide-post-status');
 };
 
 function hideUserTimeline() {
@@ -206,7 +216,7 @@ function getFollowersTableBody() {
 };
 
 function emptyFollowersTable() {
-  getFollowersTableBody.empty();
+  getFollowersTableBody().empty();
 };
 
 function createFollowersTable(followers) {
@@ -224,7 +234,7 @@ function createFollowersTable(followers) {
 
     tr.append(th, td_name, td_screen_name, td_description)
 
-    getFollowersTableBody.append(tr);
+    getFollowersTableBody().append(tr);
   });
 };
 // Yuhua He End
