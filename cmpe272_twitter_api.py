@@ -29,3 +29,16 @@ class Cmpe272_Twitter_API(object):
         res.raise_for_status()
         return res.json()
 # Jia Ma End
+
+# Yuhua He Start
+    def GetFollowers(self, **kwargs):
+        '''
+        https://developer.twitter.com/en/docs/accounts-and-users/follow-search-get-users/api-reference/get-followers-list
+        https://api.twitter.com/1.1/followers/list.json
+        '''
+
+        url = 'https://api.twitter.com/1.1/followers/list.json'
+        res = requests.get(url, auth=self._auth, timeout=self._timeout)
+        res.raise_for_status()
+        return res.json()
+# Yuhua He End
