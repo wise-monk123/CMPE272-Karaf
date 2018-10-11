@@ -41,4 +41,15 @@ class Cmpe272_Twitter_API(object):
         res = requests.get(url, auth=self._auth, timeout=self._timeout)
         res.raise_for_status()
         return res.json()
+
+    def GetFriends(self, **kwargs):
+        '''
+        https://developer.twitter.com/en/docs/accounts-and-users/follow-search-get-users/api-reference/get-friends-list
+        https://api.twitter.com/1.1/friends/list.json
+        '''
+
+        url = 'https://api.twitter.com/1.1/friends/list.json'
+        res = requests.get(url, auth=self._auth, timeout=self._timeout)
+        res.raise_for_status()
+        return res.json()
 # Yuhua He End

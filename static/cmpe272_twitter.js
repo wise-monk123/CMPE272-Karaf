@@ -3,6 +3,7 @@
 const USER_TIMELINE = 'USER_TIMELINE';
 const POST_STATUS = 'POST_STATUS';
 const GET_FOLLOWERS = 'GET_FOLLOWERS';
+const GET_FRIENDS = 'GET_FRIENDS';
 
 var current_view = POST_STATUS;
 // Yuhua He End
@@ -126,13 +127,26 @@ $(document).ready(function() {
       getFollowers();
     });
 
+    $('#get_firends').click(function(){
+      updateCurrentView(GET_FRIENDS);
+      getFriends();
+    });
+
     reload_users(interested_users);
     window.setInterval(function() {
-        if (current_users.length > 0 && [USER_TIMELINE, POST_STATUS].includes(current_view)) {
-            var l = time_count % current_users.length;
-            time_count += 1;
-            update_recent(current_users[l]);
-        }
+      if (current_users.length > 0 && [USER_TIMELINE, POST_STATUS].includes(current_view)) {
+        var l = time_count % current_users.length;
+        time_count += 1;
+        update_recent(current_users[l]);
+      }
+
+      if (current_view === GET_FOLLOWERS) {
+        getFollowers();
+      }
+
+      if (current_view === GET_FRIENDS) {
+        getFriends();
+      }
     }, TIME_INTERVAL);
 });
 //Jia Ma End
@@ -142,6 +156,7 @@ function navigateTo(view) {
   hidePostStatus();
   hideUserTimeline();
   hideFollowersPanel();
+  hideFriendsPanel();
 
   switch (view) {
     case USER_TIMELINE:
@@ -151,6 +166,9 @@ function navigateTo(view) {
       break;
     case GET_FOLLOWERS:
       showFollowersPanel();
+      break;
+    case GET_FRIENDS:
+      showFriendsPanel();
       break;
     default: break;
   }
@@ -185,18 +203,12 @@ function showFollowersPanel() {
   $('#followers-panel').removeClass('hide-followers-panel');
 };
 
-function getFollowers() {
-  $.ajax({
-      method: 'GET',
-      url: "/followers",
-      dataType: "json"
-    }).done(function(response){
-      hideUserTimeline();
-      emptyFollowersTable();
-      createFollowersTable(response);
-    }).fail((error) => {
-      console.warn('error', error);
-    });
+function hideFriendsPanel() {
+  $('#friends-panel').addClass('hide-friends-panel');
+};
+
+function showFriendsPanel() {
+  $('#friends-panel').removeClass('hide-friends-panel');
 };
 
 function createTableHeader() {
@@ -211,6 +223,10 @@ function createTableData() {
   return document.createElement('td');
 }
 
+function createImgTag() {
+  return document.createElement('img');
+}
+
 function getFollowersTableBody() {
   return $('#followers-panel > table > tbody');
 };
@@ -219,11 +235,19 @@ function emptyFollowersTable() {
   getFollowersTableBody().empty();
 };
 
+function getFriendsTableBody() {
+  return $('#friends-panel > table > tbody');
+};
+
+function emptyFriendsTable() {
+  getFriendsTableBody().empty();
+};
+
 function createFollowersTable(followers) {
   followers.users.forEach((user, i) => {
     const tr = createTableRow();
     const th = createTableHeader();
-    const td_name = createTableData()
+    const td_name = createTableData();
     const td_screen_name = createTableData();
     const td_description = createTableData();
 
@@ -236,5 +260,54 @@ function createFollowersTable(followers) {
 
     getFollowersTableBody().append(tr);
   });
+};
+
+function createFriendsTable(friends) {
+  friends.users.forEach((friend, i) => {
+    const tr = createTableRow();
+    const th = createTableHeader();
+    const img = createImgTag();
+    const td_profile = createTableData();
+    const td_name = createTableData();
+    const td_screen_name = createTableData();
+    const td_description = createTableData();
+
+    th.textContent = i + 1;
+    img.setAttribute('src', friend.profile_image_url);
+    td_name.textContent = friend.name;
+    td_screen_name.textContent = friend.screen_name;
+    td_description.textContent = friend.description;
+
+    td_profile.append(img);
+    tr.append(th, td_profile, td_name, td_screen_name, td_description);
+
+    getFriendsTableBody().append(tr);
+  });
+};
+
+function getFollowers() {
+  $.ajax({
+      method: 'GET',
+      url: "/followers",
+      dataType: "json"
+    }).done(function(response) {
+      emptyFollowersTable();
+      createFollowersTable(response);
+    }).fail((error) => {
+      console.warn('error', error);
+    });
+};
+
+function getFriends() {
+  $.ajax({
+      method: 'GET',
+      url: "/firends",
+      dataType: "json"
+    }).done(function(response) {
+      emptyFriendsTable();
+      createFriendsTable(response);
+    }).fail((error) => {
+      console.warn('error', error);
+    });
 };
 // Yuhua He End

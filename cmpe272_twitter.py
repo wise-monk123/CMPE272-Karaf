@@ -35,4 +35,10 @@ def getfollowers():
     tapi = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
     followers = tapi.GetFollowers()
     return json.dumps(followers);
+
+@app.route('/firends', methods=['GET'])
+def getfriends():
+    tapi = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
+    firends = tapi.GetFriends()
+    return json.dumps(firends);
 # Yuhua He End
