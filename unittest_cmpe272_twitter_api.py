@@ -12,6 +12,12 @@ class Test_Twitter_API(unittest.TestCase):
         self.assertEqual(api._timeout, 30)
         self.assertIsNotNone(api._auth)
 
+    def test_VerifyCredentials(self):
+        api = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
+        status = api.VerifyCredentials()
+        self.assertIsNotNone(status)
+        self.assertTrue('screen_name' in status)
+        self.assertTrue('name' in status)
 
     def test_GetUserTimeline(self):
         api = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
