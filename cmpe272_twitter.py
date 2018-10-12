@@ -42,3 +42,17 @@ def getfriends():
     firends = tapi.GetFriends()
     return json.dumps(firends);
 # Yuhua He End
+
+# Ying Liu Start
+@app.route('/welcomemessages', methods=['GET'])
+def getwelcomemessages():
+    tapi = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
+    welcomemessages = tapi.GetWelcomeMessages()
+    return json.dumps(welcomemessages);
+
+@app.route('/collections', methods=['GET'])
+def getcollections():
+    tapi = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
+    collections = tapi.GetCollections()
+    return json.dumps(collections);
+# Ying Liu End
