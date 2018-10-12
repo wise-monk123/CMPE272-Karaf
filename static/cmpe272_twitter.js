@@ -136,7 +136,6 @@ $(document).ready(function() {
     window.setInterval(function() {
       if (current_users.length > 0 && [USER_TIMELINE, POST_STATUS].includes(current_view)) {
         var l = time_count % current_users.length;
-        time_count += 1;
         update_recent(current_users[l]);
       }
 
@@ -147,6 +146,7 @@ $(document).ready(function() {
       if (current_view === GET_FRIENDS) {
         getFriends();
       }
+      time_count += 1;
     }, TIME_INTERVAL);
 });
 //Jia Ma End
