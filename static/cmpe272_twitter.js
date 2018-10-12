@@ -60,7 +60,9 @@ function update_recent(name) {
                 current_users.push(name);
                 badges = current_users.length;
                 $('#update_badge').text(badges);
-                $('.close_me_x').removeClass('btn-secondary').addClass('btn-primary');
+                if (badges == 1) {
+                    $('.close_me_x').removeClass('btn-secondary').addClass('btn-primary');
+                }
             }
           }
       });
