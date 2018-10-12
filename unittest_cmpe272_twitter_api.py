@@ -27,6 +27,16 @@ class Test_Twitter_API(unittest.TestCase):
         status = api.PostUpdate(status="Hello" + str(datetime.datetime.now()))
         self.assertIsNotNone(status)
         self.assertTrue('created_at' in status)
+        
+     def test_GetWelcomeMessages(self):
+        api = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
+        welcomemessages = api.GetWelcomeMessages()
+        self.assertIsNotNone(welcomemessages)
+    
+    def test_Collections(self):
+        api = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
+        collections = api.GetCollections()
+        self.assertIsNotNone(collections)
 
 if __name__ == '__main__':
     unittest.main()
