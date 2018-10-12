@@ -24,6 +24,11 @@ apply your twitter API key and put them in api_key.py file:
     export FLASK_ENV=development
     flask run --host=0.0.0.0
 
+## Run Unittest
+
+   for f in unittest_*.py; do python $f; done
+ 
+
 ## Development
 
 Please add your name to comments in the code block
