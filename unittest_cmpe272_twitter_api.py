@@ -6,7 +6,7 @@ import api_key as t
 class Test_Twitter_API(unittest.TestCase):
     def setUp(self):
         pass
-    
+
     def test_Init(self):
         api = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
         self.assertEqual(api._timeout, 30)
@@ -29,4 +29,5 @@ class Test_Twitter_API(unittest.TestCase):
         self.assertTrue('created_at' in status)
 
 if __name__ == '__main__':
-    unittest.main()        
+    unittest.main()
+

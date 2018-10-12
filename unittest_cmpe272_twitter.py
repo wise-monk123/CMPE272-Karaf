@@ -29,4 +29,5 @@ class Test_Flask_App(unittest.TestCase):
             self.assertTrue('{"status":"ok"}', resp.data.decode('utf-8'))
 
 if __name__ == '__main__':
-    unittest.main()                    
+    unittest.main()
+
