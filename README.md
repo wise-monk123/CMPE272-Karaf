@@ -31,21 +31,27 @@ apply your twitter API key and put them in api_key.py file:
 install docker by following [install-docker-on-linux](https://runnable.com/docker/install-docker-on-linux)
 
 build Docker image:
+
     sudo docker build -t cmpe272_twitter:latest .
 
 run Docker image:
+
     sudo docker run --name cmpe272_twitter  -p 8000:5000 --rm cmpe272_twitter:latest
 
 the web server is listening on port 8000 from host side(which is mapped to container's port 5000). Please use brower(e.g firefox) to open the web site:
+
     firefox http://0.0.0.0:8000
 
 find the running docker image id:
+
     sudo docker ps
 
 stop docker:
+
     sudo docker stop <CONTAINTER_ID> # found from previous command.
 
 push to docker hub:
+
     sudo docker login # login with your docker id and password.
     sudo docker tag cmpe272_twitter:latest wisemonk272/cmpe272_twitter:latest
     sudo docker push wisemonk272/cmpe272_twitter:latest
