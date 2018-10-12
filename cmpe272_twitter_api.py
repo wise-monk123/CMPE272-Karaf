@@ -82,7 +82,7 @@ class Cmpe272_Twitter_API(object):
         https://api.twitter.com/1.1/collections/entries.json?id=custom-539487832448843776
         '''
             
-        url = 'https://api.twitter.com/1.1/collections/entries.json?id=custom-539487832448843776n'
+        url = 'https://api.twitter.com/1.1/collections/entries.json?id=custom-539487832448843776'
         res = requests.get(url, auth=self._auth, timeout=self._timeout)
         res.raise_for_status()
         return res.json()
