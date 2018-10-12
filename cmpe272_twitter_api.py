@@ -69,10 +69,10 @@ class Cmpe272_Twitter_API(object):
     def GetCollections(self, **kwargs):
         '''
         https://developer.twitter.com/en/docs/tweets/curate-a-collection/api-reference/get-collections-entries
-        https://api.twitter.com/1.1/collections/entries.json
+        https://api.twitter.com/1.1/collections/entries.json?id=custom-539487832448843776
         '''
             
-        url = 'https://api.twitter.com/1.1/collections/entries.json'
+        url = 'https://api.twitter.com/1.1/collections/entries.json?id=custom-539487832448843776n'
         res = requests.get(url, auth=self._auth, timeout=self._timeout)
         res.raise_for_status()
         return res.json()
