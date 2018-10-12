@@ -152,19 +152,13 @@ $(document).ready(function() {
     });
 
     get_account_profile();
+    getFollowers();
+    getFriends();
 
     window.setInterval(function() {
       if (current_users.length > 0 && [USER_TIMELINE, POST_STATUS].includes(current_view)) {
         var l = time_count % current_users.length;
         update_recent(current_users[l]);
-      }
-
-      if (current_view === GET_FOLLOWERS) {
-        getFollowers();
-      }
-
-      if (current_view === GET_FRIENDS) {
-        getFriends();
       }
       time_count += 1;
     }, TIME_INTERVAL);
