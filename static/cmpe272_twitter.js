@@ -313,3 +313,96 @@ function getFriends() {
     });
 };
 // Yuhua He End
+
+// Ying Liu Start
+
+function getWelcomeMessagesTableBody() {
+    return $('#welcomemessages-panel > table > tbody');
+};
+
+function emptyWelcomeMessagesTable() {
+    getWelcomeMessagesTableBody().empty();
+};
+
+function createWelcomeMessagesTable(welcomemessages) {
+    welcomemessages.users.forEach((welcomemessage, i) => {
+                          const tr = createTableRow();
+                          const th = createTableHeader();
+                          const img = createImgTag();
+                          const td_profile = createTableData();
+                          const td_name = createTableData();
+                          const td_screen_name = createTableData();
+                          const td_description = createTableData();
+                          
+                          th.textContent = i + 1;
+                          img.setAttribute('src', welcomemessage.profile_image_url);
+                          td_name.textContent = welcomemessage.name;
+                          td_screen_name.textContent = welcomemessage.screen_name;
+                          td_description.textContent = welcomemessage.description;
+                          
+                          td_profile.append(img);
+                          tr.append(th, td_profile, td_name, td_screen_name, td_description);
+                          
+                          getWelcomeMessagesTableBody().append(tr);
+                          });
+};
+
+function getWelcomeMessages() {
+    $.ajax({
+           method: 'GET',
+           url: "/welcomemessages",
+           dataType: "json"
+           }).done(function(response) {
+                   emptyWelcomeMessagesTable();
+                   createWelcomeMessagesTable(response);
+                   }).fail((error) => {
+                           console.warn('error', error);
+                           });
+};
+
+function getCollectionsTableBody() {
+    return $('#collections-panel > table > tbody');
+};
+                  
+function emptyCollectionsTable() {
+    getCollectionsTableBody().empty();
+};
+                  
+function createCollectionsTable(collections) {
+    collections.users.forEach((collection, i) => {
+                          const tr = createTableRow();
+                          const th = createTableHeader();
+                          const img = createImgTag();
+                          const td_profile = createTableData();
+                          const td_name = createTableData();
+                          const td_screen_name = createTableData();
+                          const td_description = createTableData();
+                                                
+                          th.textContent = i + 1;
+                          img.setAttribute('src', collection.profile_image_url);
+                          td_name.textContent = collection.name;
+                          td_screen_name.textContent = collection.screen_name;
+                          td_description.textContent = collection.description;
+                                                
+                          td_profile.append(img);
+                          tr.append(th, td_profile, td_name, td_screen_name, td_description);
+                                                
+                          getCollectionsTableBody().append(tr);
+                          });
+};
+                  
+function getCollections() {
+    $.ajax({
+           method: 'GET',
+           url: "/collections",
+           dataType: "json"
+           }).done(function(response) {
+                   emptyCollectionsTable();
+                   createCollectionsTable(response);
+                   }).fail((error) => {
+                            console.warn('error', error);
+                            });
+};
+
+// Ying Liu End
+
