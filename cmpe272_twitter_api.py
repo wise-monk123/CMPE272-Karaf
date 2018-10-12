@@ -7,6 +7,16 @@ class Cmpe272_Twitter_API(object):
         self._auth = OAuth1(consumer_key, consumer_secret, access_key, access_secret)
         self._timeout = 30 # 30 seconds http read timeout.
 # Jia Ma Start
+    def VerifyCredentials(self, **kwargs):
+        '''
+        https://developer.twitter.com/en/docs/accounts-and-users/manage-account-settings/api-reference/get-account-verify_credentials.html
+        GET https://api.twitter.com/1.1/account/verify_credentials.json
+        '''
+        url = 'https://api.twitter.com/1.1/account/verify_credentials.json'
+        res = requests.get(url, params=kwargs, auth=self._auth, timeout=self._timeout)
+        res.raise_for_status()
+        return res.json()
+
     def GetUserTimeline(self, **kwargs):
         '''
         https://developer.twitter.com/en/docs/tweets/timelines/api-reference/get-statuses-user_timeline.html

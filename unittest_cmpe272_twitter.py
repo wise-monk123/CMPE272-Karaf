@@ -15,6 +15,12 @@ class Test_Flask_App(unittest.TestCase):
             resp = client.get('/')
             self.assertTrue('Yet Another Twitter API playground' in resp.data.decode('utf-8'))
 
+    def test_getself(self):
+        with server.app.test_client() as client:
+            resp = client.get('/getself')
+            self.assertTrue('name' in resp.data.decode('utf-8'))
+            self.assertTrue('screen_name' in resp.data.decode('utf-8'))
+
     def test_timeline(self):
         with server.app.test_client() as client:
             resp = client.post('/timeline',
@@ -37,8 +43,7 @@ class Test_Flask_App(unittest.TestCase):
         with server.app.test_client() as client:
             resp = client.get('/collections',data={})
             self.assertTrue(resp.data.decode('utf-8'))
-            
 
-  if __name__ == '__main__':
+
+if __name__ == '__main__':
     unittest.main()
-

@@ -9,12 +9,29 @@ var current_view = POST_STATUS;
 // Yuhua He End
 
 // Jia Ma Start
-var interested_users = ['Jia31759270', 'elonmusk', 'spaceX', 'nasa', 'asdf', 'sanjosetrails', 'YosemiteNPS', 'realDonaldTrump'];
+var interested_users = ['elonmusk', 'spaceX', 'nasa', 'asdf', 'sanjosetrails', 'YosemiteNPS', 'realDonaldTrump'];
 var current_users = [];
 // to fetch last status with frequency of TIME_INTERVAL.
 var time_count = 0;
 var TIME_INTERVAL = 6000;
 var badges = current_users.length;
+
+// user account profile with current API key.
+// it verifies current API key. nothing will be loaded if credential verification failure.
+function get_account_profile()
+{
+  $.getJSON('/getself', function(data) {
+    // current API key works.
+    if ('screen_name' in data) {
+      var name = data['name'] || data['screen_name'];
+      $('#self_account').text(name);
+      if (interested_users[0] != data['screen_name']) {
+        interested_users.splice(0, 0, data['screen_name']);
+      }
+      reload_users(interested_users);
+    }
+  });
+}
 
 function reload_users(arr)
 {
@@ -134,19 +151,14 @@ $(document).ready(function() {
       getFriends();
     });
 
-    reload_users(interested_users);
+    get_account_profile();
+    getFollowers();
+    getFriends();
+
     window.setInterval(function() {
       if (current_users.length > 0 && [USER_TIMELINE, POST_STATUS].includes(current_view)) {
         var l = time_count % current_users.length;
         update_recent(current_users[l]);
-      }
-
-      if (current_view === GET_FOLLOWERS) {
-        getFollowers();
-      }
-
-      if (current_view === GET_FRIENDS) {
-        getFriends();
       }
       time_count += 1;
     }, TIME_INTERVAL);

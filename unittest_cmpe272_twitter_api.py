@@ -12,6 +12,12 @@ class Test_Twitter_API(unittest.TestCase):
         self.assertEqual(api._timeout, 30)
         self.assertIsNotNone(api._auth)
 
+    def test_VerifyCredentials(self):
+        api = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
+        status = api.VerifyCredentials()
+        self.assertIsNotNone(status)
+        self.assertTrue('screen_name' in status)
+        self.assertTrue('name' in status)
 
     def test_GetUserTimeline(self):
         api = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
@@ -27,12 +33,12 @@ class Test_Twitter_API(unittest.TestCase):
         status = api.PostUpdate(status="Hello" + str(datetime.datetime.now()))
         self.assertIsNotNone(status)
         self.assertTrue('created_at' in status)
-        
-     def test_GetWelcomeMessages(self):
+
+    def test_GetWelcomeMessages(self):
         api = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
         welcomemessages = api.GetWelcomeMessages()
         self.assertIsNotNone(welcomemessages)
-    
+
     def test_Collections(self):
         api = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
         collections = api.GetCollections()
@@ -40,4 +46,3 @@ class Test_Twitter_API(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

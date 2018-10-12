@@ -11,6 +11,15 @@ app = Flask(__name__)
 def index():
     return app.send_static_file('cmpe272_twitter.html')
 
+@app.route('/getself', methods=['GET'])
+def getself():
+    tapi = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
+    profile = tapi.VerifyCredentials()
+    if profile:
+        return jsonify(profile)
+    else:
+        return jsonify(["error"])
+
 @app.route('/timeline', methods=['POST'])
 def timeline():
     screen_name = request.form.get('screenname', 'SanJoseTrails')
