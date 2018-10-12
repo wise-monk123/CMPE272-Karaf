@@ -28,6 +28,17 @@ class Test_Flask_App(unittest.TestCase):
                     data={'text': "Hello" + str(datetime.datetime.now())})
             self.assertTrue('{"status":"ok"}', resp.data.decode('utf-8'))
 
-if __name__ == '__main__':
+    def test_welcomemessages(self):
+        with server.app.test_client() as client:
+            resp = client.get('/welcomemessages',data={})
+            self.assertTrue(resp.data.decode('utf-8'))
+
+    def test_collections(self):
+        with server.app.test_client() as client:
+            resp = client.get('/collections',data={})
+            self.assertTrue(resp.data.decode('utf-8'))
+            
+
+  if __name__ == '__main__':
     unittest.main()
 
