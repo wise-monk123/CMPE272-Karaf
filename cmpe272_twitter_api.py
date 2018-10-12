@@ -77,3 +77,27 @@ class Cmpe272_Twitter_API(object):
         res.raise_for_status()
         return res.json()
 # Ying Liu End
+
+# Yuanzhe Start
+    def GetTrendsWoeid(self, **kwargs):
+        '''
+        https://developer.twitter.com/en/docs/trends/trends-for-location/api-reference/get-trends-place
+        https://api.twitter.com/1.1//trends/place.json?id=1
+        '''
+
+        url = 'https://api.twitter.com/1.1//trends/place.json?id=1'
+        res = requests.get(url, auth=self._auth, timeout=self._timeout)
+        res.raise_for_status()
+        return res.json()
+
+    def GetRateLimitStatus(self, **kwargs):
+        '''
+        https://developer.twitter.com/en/docs/developer-utilities/rate-limit-status/api-reference/get-application-rate_limit_status
+        https://api.twitter.com/1.1/application/rate_limit_status.json?resources=help,users,search,statuses
+        '''
+
+        url = 'https://api.twitter.com/1.1/application/rate_limit_status.json?resources=help,users,search,statuses'
+        res = requests.get(url, auth=self._auth, timeout=self._timeout)
+        res.raise_for_status()
+        return res.json()
+# Yuanzhe End

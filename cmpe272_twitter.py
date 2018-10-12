@@ -56,3 +56,17 @@ def getcollections():
     collections = tapi.GetCollections()
     return json.dumps(collections);
 # Ying Liu End
+
+# Yuanzhe Start
+@app.route('/trendswoeid', methods=['GET'])
+def gettrendswoeid():
+    tapi = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
+    trendswoeid = tapi.GetTrendsWoeid()
+    return json.dumps(trendswoeid);
+
+@app.route('/limitstatus', methods=['GET'])
+def getratelimitstatus():
+    tapi = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
+    limitstatus = tapi.GetRateLimitStatus()
+    return json.dumps(limitstatus);
+# Yuanzhe End
