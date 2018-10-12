@@ -28,9 +28,9 @@ apply your twitter API key and put them in api_key.py file:
 
 ## Run with Docker
 
-install docker by following [install-docker-on-linux](https://runnable.com/docker/install-docker-on-linux)
+install docker by following [install-docker-on-MacOS](https://runnable.com/docker/install-docker-on-macos)
 
-build Docker image:
+build Docker image:(all lower case for package name please)
 
     sudo docker build -t cmpe272_twitter:latest .
 
