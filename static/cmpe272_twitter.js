@@ -4,6 +4,7 @@ const USER_TIMELINE = 'USER_TIMELINE';
 const POST_STATUS = 'POST_STATUS';
 const GET_FOLLOWERS = 'GET_FOLLOWERS';
 const GET_FRIENDS = 'GET_FRIENDS';
+const GET_TRENDS = 'GET_TRENDS';
 
 var current_view = POST_STATUS;
 // Yuhua He End
@@ -156,6 +157,11 @@ $(document).ready(function() {
       getWelcomeMessages();
     });
 
+    $('#get_trends').click(function(){
+      updateCurrentView(GET_TRENDS);
+      getTrends();
+    });
+
     get_account_profile();
     getFollowers();
     getFriends();
@@ -189,6 +195,9 @@ function navigateTo(view) {
       break;
     case GET_FRIENDS:
       showFriendsPanel();
+      break;
+    case GET_TRENDS:
+      showGetTrendsPanel();
       break;
     default: break;
   }
@@ -423,3 +432,50 @@ function getCollections() {
 };
 
 // Ying Liu End
+
+// Yuanzhe Start
+function hideGetTrendsPanel() {
+  $('#get-trends-panel').addClass('hide-get-trends');
+};
+
+function showGetTrendsPanel() {
+  $('#get-trends-panel').removeClass('hide-get-trends');
+};
+
+function emptyTrendsPanel() {
+  $('#get-trends-panel').empty();
+}
+
+function createTrendCard(name, tweet_volume, url) {
+  return `
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">${name}</h5>
+        <p class="card-text">tweet_volume: ${tweet_volume}</p>
+        <a href="${url}" target="_blank" class="btn btn-primary">Checkout Trend</a>
+      </div>
+    </div>
+  `;
+}
+
+function renderTrendsPanel(response) {
+  const { trends = [] } = response[0];
+  trends.forEach((trendData) => {
+    const { name, tweet_volume, url } = trendData;
+    $('#get-trends-panel').append(createTrendCard(name, tweet_volume, url));
+  });
+}
+
+function getTrends() {
+  $.ajax({
+      method: 'GET',
+      url: "/trendswoeid",
+      dataType: "json"
+    }).done(function(response) {
+      emptyTrendsPanel();
+      renderTrendsPanel(response);
+    }).fail((error) => {
+      console.warn('error', error);
+    });
+};
+// Yuanzhe End
