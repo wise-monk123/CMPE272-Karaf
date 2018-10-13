@@ -150,10 +150,16 @@ $(document).ready(function() {
       updateCurrentView(GET_FRIENDS);
       getFriends();
     });
+  
+    $('#get_welcomemessages').click(function(){
+      updateCurrentView(GET_WELCOMEMESSAGES);
+      getWelcomeMessages();
+    });
 
     get_account_profile();
     getFollowers();
     getFriends();
+    getWelcomeMessages();
 
     window.setInterval(function() {
       if (current_users.length > 0 && [USER_TIMELINE, POST_STATUS].includes(current_view)) {
