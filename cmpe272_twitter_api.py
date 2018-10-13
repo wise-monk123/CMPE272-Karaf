@@ -70,18 +70,18 @@ class Cmpe272_Twitter_API(object):
         https://developer.twitter.com/en/docs/direct-messages/welcome-messages/api-reference/list-welcome-messages
         https://api.twitter.com/1.1/direct_messages/welcome_messages/list.json
         '''
-            
+
         url = 'https://api.twitter.com/1.1/direct_messages/welcome_messages/list.json'
         res = requests.get(url, auth=self._auth, timeout=self._timeout)
         res.raise_for_status()
         return res.json()
-    
+
     def GetCollections(self, **kwargs):
         '''
         https://developer.twitter.com/en/docs/tweets/curate-a-collection/api-reference/get-collections-entries
         https://api.twitter.com/1.1/collections/entries.json?id=custom-539487832448843776
         '''
-            
+
         url = 'https://api.twitter.com/1.1/collections/entries.json?id=custom-539487832448843776'
         res = requests.get(url, auth=self._auth, timeout=self._timeout)
         res.raise_for_status()

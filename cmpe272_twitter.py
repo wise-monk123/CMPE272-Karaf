@@ -45,11 +45,11 @@ def getfollowers():
     followers = tapi.GetFollowers()
     return json.dumps(followers);
 
-@app.route('/firends', methods=['GET'])
+@app.route('/friends', methods=['GET'])
 def getfriends():
     tapi = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
-    firends = tapi.GetFriends()
-    return json.dumps(firends);
+    friends = tapi.GetFriends()
+    return json.dumps(friends);
 # Yuhua He End
 
 # Ying Liu Start

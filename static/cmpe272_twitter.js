@@ -150,7 +150,7 @@ $(document).ready(function() {
       updateCurrentView(GET_FRIENDS);
       getFriends();
     });
-  
+
     $('#get_welcomemessages').click(function(){
       updateCurrentView(GET_WELCOMEMESSAGES);
       getWelcomeMessages();
@@ -321,7 +321,7 @@ function getFollowers() {
 function getFriends() {
   $.ajax({
       method: 'GET',
-      url: "/firends",
+      url: "/friends",
       dataType: "json"
     }).done(function(response) {
       emptyFriendsTable();
@@ -351,16 +351,16 @@ function createWelcomeMessagesTable(welcomemessages) {
                           const td_name = createTableData();
                           const td_screen_name = createTableData();
                           const td_description = createTableData();
-                          
+
                           th.textContent = i + 1;
                           img.setAttribute('src', welcomemessage.profile_image_url);
                           td_name.textContent = welcomemessage.name;
                           td_screen_name.textContent = welcomemessage.screen_name;
                           td_description.textContent = welcomemessage.description;
-                          
+
                           td_profile.append(img);
                           tr.append(th, td_profile, td_name, td_screen_name, td_description);
-                          
+
                           getWelcomeMessagesTableBody().append(tr);
                           });
 };
@@ -381,11 +381,11 @@ function getWelcomeMessages() {
 function getCollectionsTableBody() {
     return $('#collections-panel > table > tbody');
 };
-                  
+
 function emptyCollectionsTable() {
     getCollectionsTableBody().empty();
 };
-                  
+
 function createCollectionsTable(collections) {
     collections.users.forEach((collection, i) => {
                           const tr = createTableRow();
@@ -395,20 +395,20 @@ function createCollectionsTable(collections) {
                           const td_name = createTableData();
                           const td_screen_name = createTableData();
                           const td_description = createTableData();
-                                                
+
                           th.textContent = i + 1;
                           img.setAttribute('src', collection.profile_image_url);
                           td_name.textContent = collection.name;
                           td_screen_name.textContent = collection.screen_name;
                           td_description.textContent = collection.description;
-                                                
+
                           td_profile.append(img);
                           tr.append(th, td_profile, td_name, td_screen_name, td_description);
-                                                
+
                           getCollectionsTableBody().append(tr);
                           });
 };
-                  
+
 function getCollections() {
     $.ajax({
            method: 'GET',
@@ -423,4 +423,3 @@ function getCollections() {
 };
 
 // Ying Liu End
-
