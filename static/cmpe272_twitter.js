@@ -183,6 +183,7 @@ function navigateTo(view) {
   hideUserTimeline();
   hideFollowersPanel();
   hideFriendsPanel();
+  hideGetTrendsPanel();
 
   switch (view) {
     case USER_TIMELINE:
