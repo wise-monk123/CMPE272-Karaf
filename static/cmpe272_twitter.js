@@ -5,6 +5,7 @@ const POST_STATUS = 'POST_STATUS';
 const GET_FOLLOWERS = 'GET_FOLLOWERS';
 const GET_FRIENDS = 'GET_FRIENDS';
 const GET_TRENDS = 'GET_TRENDS';
+const GET_COLLECTIONS = 'GET_COLLECTIONS';
 
 var current_view = POST_STATUS;
 // Yuhua He End
@@ -162,6 +163,11 @@ $(document).ready(function() {
       getTrends();
     });
 
+    $('#get_collections').click(function(){
+      updateCurrentView(GET_COLLECTIONS);
+      getCollections();
+    });
+
     get_account_profile();
     getFollowers();
     getFriends();
@@ -184,6 +190,7 @@ function navigateTo(view) {
   hideFollowersPanel();
   hideFriendsPanel();
   hideGetTrendsPanel();
+  hideGetCollectionsPanel();
 
   switch (view) {
     case USER_TIMELINE:
@@ -199,6 +206,9 @@ function navigateTo(view) {
       break;
     case GET_TRENDS:
       showGetTrendsPanel();
+      break;
+    case GET_COLLECTIONS:
+      showGetCollectionsPanel();
       break;
     default: break;
   }
@@ -388,50 +398,46 @@ function getWelcomeMessages() {
                            });
 };
 
-function getCollectionsTableBody() {
-    return $('#collections-panel > table > tbody');
-};
-
 function emptyCollectionsTable() {
-    getCollectionsTableBody().empty();
-};
-
-function createCollectionsTable(collections) {
-    collections.users.forEach((collection, i) => {
-                          const tr = createTableRow();
-                          const th = createTableHeader();
-                          const img = createImgTag();
-                          const td_profile = createTableData();
-                          const td_name = createTableData();
-                          const td_screen_name = createTableData();
-                          const td_description = createTableData();
-
-                          th.textContent = i + 1;
-                          img.setAttribute('src', collection.profile_image_url);
-                          td_name.textContent = collection.name;
-                          td_screen_name.textContent = collection.screen_name;
-                          td_description.textContent = collection.description;
-
-                          td_profile.append(img);
-                          tr.append(th, td_profile, td_name, td_screen_name, td_description);
-
-                          getCollectionsTableBody().append(tr);
-                          });
+  $('#get-collections-panel ul').empty();
 };
 
 function getCollections() {
     $.ajax({
-           method: 'GET',
-           url: "/collections",
-           dataType: "json"
-           }).done(function(response) {
-                   emptyCollectionsTable();
-                   createCollectionsTable(response);
-                   }).fail((error) => {
-                            console.warn('error', error);
-                            });
+      method: 'GET',
+      url: "/collections",
+      dataType: "json"
+    }).done(function(response) {
+      emptyCollectionsTable();
+      renderGetCollectionsList(response);
+    }).fail((error) => {
+      console.warn('error', error);
+    });
 };
 
+function collectionListItemTemplate(text) {
+  const listClassArray = ['list-group-item-primary', 'list-group-item-secondary', 'list-group-item-success', 'list-group-item-danger', 'list-group-item-warning', 'list-group-item-info', 'list-group-item-light', 'list-group-item-dark'];
+
+  const randomClass = listClassArray[ Math.floor(Math.random() * listClassArray.length) ];
+
+  return `<li class="list-group-item ${randomClass}">${text}</li>`;
+};
+
+function renderGetCollectionsList({ objects }) {
+  const { tweets = {} } = objects;
+
+  for (var i in tweets) {
+    $('#get-collections-panel > ul').append(collectionListItemTemplate(tweets[i].text));
+  }
+};
+
+function hideGetCollectionsPanel() {
+  $('#get-collections-panel').addClass('hide-get-collections');
+};
+
+function showGetCollectionsPanel() {
+  $('#get-collections-panel').removeClass('hide-get-collections');
+};
 // Ying Liu End
 
 // Yuanzhe Start

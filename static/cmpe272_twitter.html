@@ -27,12 +27,21 @@
       .hide-get-trends {
         display: none !important;
       }
+      .hide-get-collections {
+        display: none;
+      }
       .trends-panel {
         display: flex;
         flex-wrap: wrap;
       }
       .card {
         margin: 15px;
+      }
+      .center-text {
+        text-align: center;
+      }
+      #get-collections-panel {
+        padding-top: 50px;
       }
     </style>
   </head>
@@ -124,6 +133,11 @@
       <!-- Yuanzhe Start -->
       <div id="get-trends-panel" class="trends-panel"></div>
       <!-- Yuanzhe End -->
+
+      <div id="get-collections-panel">
+        <h3 class="center-text">COLLECTIONS</h3>
+        <ul class="list-group"></ul>
+      </div>
     </main>
 
     <!-- Optional JavaScript -->
