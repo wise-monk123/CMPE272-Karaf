@@ -6,6 +6,7 @@ const GET_FOLLOWERS = 'GET_FOLLOWERS';
 const GET_FRIENDS = 'GET_FRIENDS';
 const GET_TRENDS = 'GET_TRENDS';
 const GET_COLLECTIONS = 'GET_COLLECTIONS';
+const GET_WELCOMEMESSAGES = 'GET_WELCOMEMESSAGES';
 
 var current_view = POST_STATUS;
 // Yuhua He End
@@ -171,7 +172,7 @@ $(document).ready(function() {
     get_account_profile();
     getFollowers();
     getFriends();
-    getWelcomeMessages();
+    // getWelcomeMessages();
 
     window.setInterval(function() {
       if (current_users.length > 0 && [USER_TIMELINE, POST_STATUS].includes(current_view)) {
@@ -191,6 +192,7 @@ function navigateTo(view) {
   hideFriendsPanel();
   hideGetTrendsPanel();
   hideGetCollectionsPanel();
+  hideWelocomeMessagePanel();
 
   switch (view) {
     case USER_TIMELINE:
@@ -209,6 +211,9 @@ function navigateTo(view) {
       break;
     case GET_COLLECTIONS:
       showGetCollectionsPanel();
+      break;
+    case GET_WELCOMEMESSAGES:
+      showWelocomeMessagePanel();
       break;
     default: break;
   }
@@ -354,48 +359,69 @@ function getFriends() {
 
 // Ying Liu Start
 
-function getWelcomeMessagesTableBody() {
-    return $('#welcomemessages-panel > table > tbody');
+function isEmpty(obj) {
+  for(var key in obj) {
+    if(obj.hasOwnProperty(key)) return false;
+  }
+  return true;
+}
+
+function emptyMessageTemplate() {
+  return `
+    <h2>No Welcome message available!</h2>
+  `;
+};
+
+function welcomeCardTemplate(id, text, time) {
+  return `
+    <div class="list-group">
+      <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">ID: ${id}</h5>
+          <small>${time}</small>
+        </div>
+        <p class="mb-1">${text}</p>
+      </a>
+    </div>
+  `;
+};
+
+function renderWelcomePanel(response) {
+  if (isEmpty(response)) {
+    $('#get-welcome-message-panel').append(emptyMessageTemplate());
+  }
+  else {
+    const { welcome_messages } = response;
+    welcome_messages.forEach((msg) => {
+      const {id, created_timestamp, message_data} = msg;
+      $('#get-welcome-message-panel').append(welcomeCardTemplate(id, message_data.text, created_timestamp));
+    });
+  }
 };
 
 function emptyWelcomeMessagesTable() {
-    getWelcomeMessagesTableBody().empty();
+  $('#get-welcome-message-panel').empty();
 };
 
-function createWelcomeMessagesTable(welcomemessages) {
-    welcomemessages.users.forEach((welcomemessage, i) => {
-                          const tr = createTableRow();
-                          const th = createTableHeader();
-                          const img = createImgTag();
-                          const td_profile = createTableData();
-                          const td_name = createTableData();
-                          const td_screen_name = createTableData();
-                          const td_description = createTableData();
+function hideWelocomeMessagePanel() {
+  $('#get-welcome-message-panel').addClass('hide-welcome-message');
+};
 
-                          th.textContent = i + 1;
-                          img.setAttribute('src', welcomemessage.profile_image_url);
-                          td_name.textContent = welcomemessage.name;
-                          td_screen_name.textContent = welcomemessage.screen_name;
-                          td_description.textContent = welcomemessage.description;
-
-                          td_profile.append(img);
-                          tr.append(th, td_profile, td_name, td_screen_name, td_description);
-
-                          getWelcomeMessagesTableBody().append(tr);
-                          });
+function showWelocomeMessagePanel() {
+  $('#get-welcome-message-panel').removeClass('hide-welcome-message');
 };
 
 function getWelcomeMessages() {
-    $.ajax({
-           method: 'GET',
-           url: "/welcomemessages",
-           dataType: "json"
-           }).done(function(response) {
-                   emptyWelcomeMessagesTable();
-                   createWelcomeMessagesTable(response);
-                   }).fail((error) => {
-                           console.warn('error', error);
-                           });
+  $.ajax({
+    method: 'GET',
+    url: "/welcomemessages",
+    dataType: "json"
+  }).done(function(response) {
+    emptyWelcomeMessagesTable();
+    renderWelcomePanel()
+  }).fail((error) => {
+    console.warn('error', error);
+  });
 };
 
 function emptyCollectionsTable() {
@@ -403,16 +429,16 @@ function emptyCollectionsTable() {
 };
 
 function getCollections() {
-    $.ajax({
-      method: 'GET',
-      url: "/collections",
-      dataType: "json"
-    }).done(function(response) {
-      emptyCollectionsTable();
-      renderGetCollectionsList(response);
-    }).fail((error) => {
-      console.warn('error', error);
-    });
+  $.ajax({
+    method: 'GET',
+    url: "/collections",
+    dataType: "json"
+  }).done(function(response) {
+    emptyCollectionsTable();
+    renderGetCollectionsList(response);
+  }).fail((error) => {
+    console.warn('error', error);
+  });
 };
 
 function collectionListItemTemplate(text) {
