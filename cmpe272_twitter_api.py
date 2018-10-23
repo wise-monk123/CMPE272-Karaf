@@ -38,6 +38,18 @@ class Cmpe272_Twitter_API(object):
         res = requests.post(url, data=kwargs, auth=self._auth, timeout=self._timeout)
         res.raise_for_status()
         return res.json()
+    
+    def PostProfileImage(self, **kwargs):
+        '''
+        https://developer.twitter.com/en/docs/accounts-and-users/manage-account-settings/api-reference
+        https://api.twitter.com/1.1/account/update_profile_image.json
+        '''
+        assert 'image' in kwargs, "image is required!"
+
+        url = 'https://api.twitter.com/1.1/account/update_profile_image.json'
+        res = requests.post(url, data=kwargs, auth=self._auth, timeout=self._timeout)
+        res.raise_for_status()
+        return res.json()
 # Jia Ma End
 
 # Yuhua He Start
