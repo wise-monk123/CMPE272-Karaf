@@ -1,6 +1,7 @@
 // Yuhua He Start
 // Define constants for different views
 const USER_TIMELINE = 'USER_TIMELINE';
+const UPLOAD_PROFILE = 'UPLOAD_PROFILE';
 const POST_STATUS = 'POST_STATUS';
 const GET_FOLLOWERS = 'GET_FOLLOWERS';
 const GET_FRIENDS = 'GET_FRIENDS';
@@ -106,6 +107,25 @@ $(document).ready(function() {
         }
       });
 
+    $('#upload_profile_form').change(function(evt) {
+      console.log(evt);
+      $('#upload_btn').text("Upload Profile Image");
+    });
+    $('#upload_profile_form').submit(function (evt) {
+      evt.preventDefault();
+      //evt.target.submit();
+      xhr = new XMLHttpRequest();
+      var formdata = new FormData(evt.target);
+      xhr.open('POST', '/upload');
+      xhr.addEventListener("load", function(e){
+        var req = this;
+        var result = xhr.response;
+        console.log(result);
+        $('#upload_btn').text("Upload Success!");
+      });
+      xhr.send(formdata);
+    });
+  
     $('.close_me_x').click(function(){
       $('.twitter_item').remove();
       badges = 0;
@@ -122,6 +142,11 @@ $(document).ready(function() {
     $('#nav_post_status').click(function(){
       updateCurrentView(POST_STATUS);
       $('#post_status_input').focus();
+    });
+
+    $('#upload_profile').click(function(){
+      updateCurrentView(UPLOAD_PROFILE);
+      $('#upload_btn').focus();
     });
 
     $('#get_followers').click(function(){
@@ -156,6 +181,7 @@ $(document).ready(function() {
 // Yuhua He  Start
 function navigateTo(view) {
   hidePostStatus();
+  hideUploadProfile();
   hideUserTimeline();
   hideFollowersPanel();
   hideFriendsPanel();
@@ -165,6 +191,9 @@ function navigateTo(view) {
     case POST_STATUS:
       showPostStatus();
       showUserTimeline();
+      break;
+    case UPLOAD_PROFILE:
+      showUploadProfile();
       break;
     case GET_FOLLOWERS:
       showFollowersPanel();
@@ -187,6 +216,13 @@ function hidePostStatus() {
 
 function showPostStatus() {
   $('#post-status').removeClass('hide-post-status');
+};
+function hideUploadProfile() {
+  $('#upload-profile-image').addClass('hide-upload-profile-image');
+};
+
+function showUploadProfile() {
+  $('#upload-profile-image').removeClass('hide-upload-profile-image');
 };
 
 function hideUserTimeline() {

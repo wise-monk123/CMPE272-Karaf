@@ -21,6 +21,9 @@
       .hide-post-status {
         display: none;
       }
+      .hide-upload-profile-image {
+        display: none;
+      }
       .hide-friends-panel {
         display: none;
       }
@@ -34,6 +37,7 @@
         <nav class="nav nav-underline">
           <a class="nav-link" id='nav_post_status' href="#" > Post Status</span></a>
           <a class="nav-link active" id="dashboard" href="#" >User timeline</a>
+          <a class="nav-link" id="upload_profile" href="#" >Upload Profile Image</a>
           <a class="nav-link" id="get_followers" href="#" >Get Followers</a>
           <a class="nav-link" id="get_firends" href="#" >Get Friends</a>
         </nav>
@@ -48,6 +52,14 @@
           </div>
           <input id="post_status_input" type="text" class="form-control" placeholder="I love CMPE272!" aria-label="I love CMPE272!" aria-describedby="basic-addon1">
         </div>
+      </div>
+
+      <div class="my-3 p-3 bg-white rounded shadow-sm" name="upload_profile_image" id="upload-profile-image">
+        <h6 class="border-bottom border-gray pb-2 mb-0">Upload Profile Image</h6>
+        <form id="upload_profile_form" method="POST" action="/upload" enctype="multipart/form-data">
+          <input type="file" name="file" >
+          <button id="upload_btn" type="submit">Upload Profile Image</button>
+      </form>
       </div>
 
 
