@@ -43,6 +43,16 @@ class Test_Twitter_API(unittest.TestCase):
         api = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
         collections = api.GetCollections()
         self.assertIsNotNone(collections)
+        
+     def test_GetTrendsWoeid(self):
+        api = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
+        trendswoeid = api.GetTrendsWoeid()
+        self.assertIsNotNone(trendswoeid)   
+     
+    def test_GetRateLimitStatus(self):
+        api = twitter(t.CONSUMER_KEY, t.CONSUMER_SECRET, t.ACCESS_KEY, t.ACCESS_SECRET)
+        limitstatus = api.GetRateLimitStatus()
+        self.assertIsNotNone(limitstatus)
 
 if __name__ == '__main__':
     unittest.main()
