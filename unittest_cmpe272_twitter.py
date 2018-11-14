@@ -44,6 +44,15 @@ class Test_Flask_App(unittest.TestCase):
             resp = client.get('/collections',data={})
             self.assertTrue(resp.data.decode('utf-8'))
 
+    def test_trendswoeid(self):
+        with server.app.test_client() as client:
+            resp = client.get('/trendswoeid',data={})
+            self.assertTrue(resp.data.decode('utf-8'))
+            
+    def test_limitstatus(self):
+        with server.app.test_client() as client:
+            resp = client.get('/limitstatus',data={})
+            self.assertTrue(resp.data.decode('utf-8'))        
 
 if __name__ == '__main__':
     unittest.main()
